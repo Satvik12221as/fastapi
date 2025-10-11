@@ -1,7 +1,6 @@
 from fastapi import FastAPI  
 from . import schemas    
 from . import models
-from .database import Base
 from .database import engine
 
 app = FastAPI()
