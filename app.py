@@ -15,7 +15,7 @@ def index(limit=10, published : bool = True , sort: Optional[str] = None):
 def unpublished():
     return {"data" : 'all unpublished blogs'}
 
-# fetch blog by id
+# Fetch blog by id
 @app.get("/blog/{id}")
 def about(id : int):
     return {"data" : id}
