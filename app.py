@@ -20,7 +20,7 @@ def unpublished():
 def about(id : int):
     return {"data" : id}
 
-# fetch comments of a blog by id
+# Fetch comments of a blog by id
 @app.get("/blog/{id}/comments")
 def comments(id):
     return {"data" : {'1', '2'}}
