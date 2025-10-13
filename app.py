@@ -30,7 +30,7 @@ class Blog(BaseModel):
     body : str
     published : Optional[bool]
 
-# post created
+# Post created
 @app.post('/blog')
 def create_blog(blog : Blog):
     return {"data" : f'blog is created as {blog.title}'}
