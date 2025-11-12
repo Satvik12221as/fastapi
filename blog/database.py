@@ -12,4 +12,5 @@ engine = create_engine(SQLALCHAMY_DATABASE_URL, connect_args={"check_same_thread
 # Create session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+# Create Base class
 Base = declarative_base()
