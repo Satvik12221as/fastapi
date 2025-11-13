@@ -68,6 +68,7 @@ def delete(id , db : Session = Depends(get_db)):
 
 
 
+
 # Update blog
 @app.put('/blog/{id}' , status_code=status.HTTP_202_ACCEPTED)
 def update(id , request : schemas.Blog ,  db : Session = Depends(get_db)):
@@ -77,6 +78,8 @@ def update(id , request : schemas.Blog ,  db : Session = Depends(get_db)):
     blog.update({'title' : request.title , 'body' : request.body})
     db.commit()
     return 'updated'
+
+
 
 
 
