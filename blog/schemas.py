@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-# Blog schema
+# blog schema
 class Blog(BaseModel):
     title : str
     body : str
