@@ -125,3 +125,6 @@ def delete_user(id , db : Session = Depends(get_db)):
     user.delete(synchronize_session=False)
     db.commit()
     return 'done'
+
+
+a
