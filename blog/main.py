@@ -4,6 +4,8 @@ from . import schemas
 from . import models
 from .database import engine , SessionLocal
 from sqlalchemy.orm import Session
+from passlib.context import CryptContext
+
 
 app = FastAPI()
 
@@ -83,11 +85,43 @@ def update(id , request : schemas.Blog ,  db : Session = Depends(get_db)):
 
 
 
+
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def safe_hash(password: str):
+    password = password[:72]    # truncate for bcrypt
+    return pwd_context.hash(password)
+
 # Create user
 @app.post('/user' , status_code=201)
 def create_user(request : schemas.user , db : Session = Depends(get_db)):
-    new_user = models.User(name=request.name , email=request.email , password=request.password)
+    print("DEBUG VALUE:", request.password)
+    print("DEBUG TYPE:", type(request.password))
+    print("DEBUG LEN:", len(str(request.password)))
+
+    hashed_password = safe_hash(request.password)
+    new_user = models.user(name=request.name , email=request.email , password=hashed_password)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return new_user
+    return new_user    
+    
+
+
+
+
+
+
+
+
+# delete user
+@app.delete('/user/{id}' , status_code=status.HTTP_204_NO_CONTENT)
+def delete_user(id , db : Session = Depends(get_db)):
+    user = db.query(models.user).filter(models.user.id == id)
+    if not user.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'user with the id {id} is not available')
+    user.delete(synchronize_session=False)
+    db.commit()
+    return 'done'

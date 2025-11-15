@@ -13,6 +13,7 @@ class Blog(Base):
     body = Column(String)
 
 
+
 # Create User table model
 class user(Base):
     __tablename__ = 'users'
